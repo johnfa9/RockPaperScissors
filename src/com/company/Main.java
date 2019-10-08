@@ -14,6 +14,9 @@ public class Main {
         boolean playerValid;
         int player1Counter=0;
         int player2Counter=0;
+        Computer computerPlayer=null;
+        Player humanPlayer2 = null;
+        Player humanPlayer=null;
         List<String> playerOneHistory=new ArrayList<>();
         List<String> playerTwoHistory=new ArrayList<>();
 
@@ -29,10 +32,14 @@ public class Main {
                 playerValid = true;
                 if (playerType.equals("COMPUTER")){
                     playerType="Computer";
+                    computerPlayer=new Computer();
                 }
                 else playerType="Player 2";
+                    humanPlayer2=new Player(myObj);
             }
         } while (playerValid==false);
+
+        humanPlayer=new Player(myObj);
 
         do {
             //print menu
@@ -43,8 +50,6 @@ public class Main {
             System.out.println("3. Type 'quit' to stop playing.\n");
             choice = myObj.nextLine().toUpperCase();
             if (choice.equals("PLAY")) {
-                Player humanPlayer=new Player(myObj);
-
                 humanPlayer.printRequest("Player 1");
                 choice=humanPlayer.getRequest();
 
@@ -53,13 +58,11 @@ public class Main {
                     userOneSelected = choice;
                     //player 2 is human
                     if (playerType.equals("Player 2")) {
-                        Player humanPlayer2=new Player(myObj);
                         humanPlayer.printRequest("Player 2");
                         choice=humanPlayer2.getRequest();
                     }
                     //player 2 is the computer
                     else {
-                        Computer computerPlayer=new Computer();
                         choice=computerPlayer.getGesture();
                     }
                     if (!choice.equals("QUIT".toUpperCase())) {
